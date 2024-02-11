@@ -1,4 +1,5 @@
 export * from './companies'
+export * from './integrations'
 export * from './main'
 export * from './platforms'
 export * from './users'

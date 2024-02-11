@@ -1,4 +1,5 @@
 import companies from './companies'
+import integrations from './integrations'
 import main from './main'
 import platforms from './platforms'
 import users from './users'
@@ -8,4 +9,5 @@ export default {
   ...platforms,
   ...companies,
   ...users,
+  ...integrations,
 }
