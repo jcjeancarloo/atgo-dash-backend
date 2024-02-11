@@ -56,7 +56,7 @@ export const calcTotalByPaymentStatus = (status: string) => {
 
 export const getTotalByPaymentStatus = () => {
   return {
-    totalPaidSales: TotalPaymentStatusType[PaymentStatusType.AwaitingPayment],
+    totalPaidSales: TotalPaymentStatusType[PaymentStatusType.Paid],
     totalAwaitingPaymentSales: TotalPaymentStatusType[PaymentStatusType.AwaitingPayment],
     totalCanceledSales: TotalPaymentStatusType[PaymentStatusType.Canceled],
   }
