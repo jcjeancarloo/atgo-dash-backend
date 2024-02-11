@@ -1,5 +1,5 @@
-import { type DeleteCompanyUsecase } from '@/domain/usecases/company'
-import { noContent } from '@/presentation/helpers/http-helper'
+import { type GetUserUsecase } from '@/domain/usecases/users'
+import { ok } from '@/presentation/helpers/http-helper'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 import { inject, injectable } from 'tsyringe'
 import * as yup from 'yup'
@@ -11,11 +11,8 @@ type ValidHttpRequest = {
 }
 
 @injectable()
-export class DeleteCompanyController implements Controller {
-  constructor(
-    @inject('DeleteCompanyUsecase')
-    private readonly deleteCompany: DeleteCompanyUsecase,
-  ) {}
+export class GetUserController implements Controller {
+  constructor(@inject('GetUserUsecase') private readonly getUser: GetUserUsecase) {}
 
   async validate(httpRequest: HttpRequest): Promise<ValidHttpRequest> {
     return yup
@@ -28,8 +25,8 @@ export class DeleteCompanyController implements Controller {
   }
 
   async execute({ params }: HttpRequest): Promise<HttpResponse> {
-    await this.deleteCompany.perform(params)
-    return noContent()
+    const user = await this.getUser.perform(params)
+    return ok(user)
   }
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {

@@ -1,5 +1,5 @@
-import { type DeleteCompanyUsecase } from '@/domain/usecases/company'
-import { noContent } from '@/presentation/helpers/http-helper'
+import { type UpdateUserUsecase } from '@/domain/usecases/users'
+import { ok } from '@/presentation/helpers/http-helper'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 import { inject, injectable } from 'tsyringe'
 import * as yup from 'yup'
@@ -8,13 +8,16 @@ type ValidHttpRequest = {
   params: {
     id: string
   }
+  body: {
+    password?: string
+  }
 }
 
 @injectable()
-export class DeleteCompanyController implements Controller {
+export class UpdateUserController implements Controller {
   constructor(
-    @inject('DeleteCompanyUsecase')
-    private readonly deleteCompany: DeleteCompanyUsecase,
+    @inject('UpdateUserUsecase')
+    private readonly updateUser: UpdateUserUsecase,
   ) {}
 
   async validate(httpRequest: HttpRequest): Promise<ValidHttpRequest> {
@@ -23,13 +26,16 @@ export class DeleteCompanyController implements Controller {
         params: yup.object({
           id: yup.string().uuid().required(),
         }),
+        body: yup.object({
+          password: yup.string(),
+        }),
       })
       .validate(httpRequest, { abortEarly: false })
   }
 
-  async execute({ params }: HttpRequest): Promise<HttpResponse> {
-    await this.deleteCompany.perform(params)
-    return noContent()
+  async execute({ params, body }: HttpRequest): Promise<HttpResponse> {
+    const user = await this.updateUser.perform({ ...params, ...body })
+    return ok(user)
   }
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {

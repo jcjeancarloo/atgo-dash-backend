@@ -1,5 +1,5 @@
 import { type DeletePlatformUsecase } from '@/domain/usecases/platform'
-import { ok } from '@/presentation/helpers/http-helper'
+import { noContent } from '@/presentation/helpers/http-helper'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 import { inject, injectable } from 'tsyringe'
 import * as yup from 'yup'
@@ -29,7 +29,7 @@ export class DeletePlatformController implements Controller {
 
   async execute({ params }: HttpRequest): Promise<HttpResponse> {
     await this.deletePlatform.perform(params)
-    return ok()
+    return noContent()
   }
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
