@@ -96,3 +96,5 @@ export const formatCellPhone = (number: string) => {
     phone_prefix: onlyNumbers.slice(0, 2),
   }
 }
+
+export const toISO = (date: string): string => new Date(date).toISOString()

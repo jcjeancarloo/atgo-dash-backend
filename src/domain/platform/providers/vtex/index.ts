@@ -8,6 +8,7 @@ import {
   getPaymentMethod,
   getTotalByPaymentMethod,
   getTotalByPaymentStatus,
+  toISO,
 } from '@/utils'
 import { inject, injectable } from 'tsyringe'
 
@@ -16,7 +17,6 @@ export class VtexProvider implements PlatformProvider {
   constructor(@inject('HttpClient') private readonly httpClient: HttpClient) {}
 
   async getSales(params: GetSales.Params): Promise<GetSales.Result> {
-    const toISO = (date: string): string => new Date(date).toISOString()
     const filterByDate = `creationDate:[${toISO(params.startDate)} TO ${toISO(params.endDate)}]`
 
     const { data, error } = await this.httpClient.request({

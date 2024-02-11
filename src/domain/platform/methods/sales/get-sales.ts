@@ -6,7 +6,7 @@ export namespace GetSales {
     value: number
     date: Date
     externalOrderId: string
-    paymentMethod: SalesPaymentType
+    paymentMethod: SalesPaymentType | string
   }
 
   export type Params = {
@@ -23,7 +23,7 @@ export namespace GetSales {
 
   export type Result = {
     items: Sale[]
-    pagination: {
+    pagination?: {
       hasNext: boolean
       currentPage: number
       itemsPerPage: number
@@ -33,7 +33,7 @@ export namespace GetSales {
     totalCanceledSales: number
     totalCount: number
     totalAmount: number
-    totalByPaymentMethod: {
+    totalByPaymentMethod?: {
       creditCard: number
       pix: number
       boleto: number
