@@ -1,3 +1,3 @@
-import { CreateCoupon, GetSales } from './methods'
+import { GetSales } from './methods'
 
-export default interface PlatformProvider extends CreateCoupon, GetSales {}
+export default interface PlatformProvider extends GetSales {}

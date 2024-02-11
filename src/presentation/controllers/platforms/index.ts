@@ -1,4 +1,3 @@
-export * from './coupons'
 export * from './create-platform-controller'
 export * from './delete-platform-controller'
 export * from './get-platform-controller'

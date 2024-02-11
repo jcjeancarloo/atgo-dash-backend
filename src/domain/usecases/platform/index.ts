@@ -4,5 +4,4 @@ export * from './get-platform-usecase'
 export * from './list-platform-usecase'
 export * from './update-platform-usecase'
 
-export * from './coupons'
 export * from './sales'
