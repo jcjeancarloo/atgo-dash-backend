@@ -1,5 +1,0 @@
-export * from './create-gateway-service'
-export * from './delete-gateway-service'
-export * from './get-gateway-service'
-export * from './list-gateway-service'
-export * from './update-gateway-service'

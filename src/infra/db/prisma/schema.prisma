@@ -22,7 +22,7 @@ model Company {
   updatedAt   DateTime      @updatedAt
   platform    Platform      @relation(fields: [platformId], references: [id])
   platformId  String
-  Integration Integration[]
+  integration Integration[]
 
   @@map("companies")
 }
