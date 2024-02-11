@@ -1,5 +1,6 @@
 export * from './create-user'
 export * from './delete-user'
 export * from './get-user'
+export * from './get-user-by-email'
 export * from './list-user'
 export * from './update-user'

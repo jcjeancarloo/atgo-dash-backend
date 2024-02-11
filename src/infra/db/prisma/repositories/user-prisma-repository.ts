@@ -12,6 +12,17 @@ export class UserPrismaRepository implements UserRepository.UserRepository {
     })
   }
 
+  async getByEmail(
+    params: UserRepository.GetByEmail.Params,
+  ): Promise<UserRepository.GetByEmail.Result> {
+    return await this.prisma.user.findFirst({
+      where: params,
+      include: {
+        company: true,
+      },
+    })
+  }
+
   async create(params: UserRepository.Create.Params): Promise<UserRepository.Create.Result> {
     return await this.prisma.user.create({
       data: params,

@@ -1,3 +1,4 @@
+import authentication from './authentication'
 import companies from './companies'
 import integrations from './integrations'
 import main from './main'
@@ -10,4 +11,5 @@ export default {
   ...companies,
   ...users,
   ...integrations,
+  ...authentication,
 }

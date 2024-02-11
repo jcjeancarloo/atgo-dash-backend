@@ -1,3 +1,4 @@
+export * from './authentication'
 export * from './companies'
 export * from './integrations'
 export * from './main'
