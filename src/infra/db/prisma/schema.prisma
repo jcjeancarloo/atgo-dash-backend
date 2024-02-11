@@ -10,72 +10,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model PlatformKind {
-  id          String     @id @default(uuid())
+model Company {
+  id          String        @id @default(uuid())
   name        String
-  description String
-  isActive    Boolean    @default(true)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  Platform    Platform[]
+  document    String        @unique
+  description String?
+  website     String?
+  users       User[]
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  platform    Platform      @relation(fields: [platformId], references: [id])
+  platformId  String
+  Integration Integration[]
 
-  @@map("platform_kind")
+  @@map("companies")
 }
 
-enum Resources {
-  BENEFITS
-  SALES
-  CAMPAIGNS
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
 
 model Platform {
-  id             String       @id @default(uuid())
-  name           String
-  image          String
-  platformKind   PlatformKind @relation(fields: [platformKindId], references: [id])
-  platformKindId String
-  resources      Resources[]
-  isActive       Boolean      @default(true)
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id          String        @id @default(uuid())
+  name        String
+  image       String?
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Company     Company[]
+  Integration Integration[]
 
   @@map("platforms")
 }
 
-model Gateway {
-  id           String         @id @default(uuid())
-  name         String
-  isActive     Boolean        @default(true)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  Subscription Subscription[]
+model Integration {
+  id         String   @id @default(uuid())
+  company    Company  @relation(fields: [companyId], references: [id])
+  platform   Platform @relation(fields: [platformId], references: [id])
+  platformId String
+  privateKey String
+  publicKey  String?
+  url        String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  companyId  String
 
-  @@map("gateways")
-}
-
-model Plan {
-  id           String         @id @default(uuid())
-  name         String
-  amount       Float
-  isActive     Boolean        @default(true)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  Subscription Subscription[]
-
-  @@map("plans")
-}
-
-model Subscription {
-  id                    String   @id @default(uuid())
-  gatewayCustomerId     String   @unique
-  gatewaySubscriptionId String
-  isActive              Boolean  @default(true)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  gateway               Gateway  @relation(fields: [gatewayId], references: [id])
-  plan                  Plan     @relation(fields: [planId], references: [id])
-  gatewayId             String
-  planId                String
-
-  @@map("subscriptions")
+  @@map("integrations")
 }
