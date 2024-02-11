@@ -1,7 +1,6 @@
 import { type UpdatePlatformUsecase } from '@/domain/usecases/platform'
 import { ok } from '@/presentation/helpers/http-helper'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
-import { Resource } from '@/shared'
 import { inject, injectable } from 'tsyringe'
 import * as yup from 'yup'
 
@@ -12,9 +11,7 @@ type ValidHttpRequest = {
   body: {
     name?: string
     image?: string
-    platformKindId?: string
     isActive?: boolean
-    resources?: Resource[]
   }
 }
 
@@ -34,9 +31,7 @@ export class UpdatePlatformController implements Controller {
         body: yup.object({
           name: yup.string(),
           image: yup.string(),
-          platformKindId: yup.string().uuid(),
           isActive: yup.boolean(),
-          resources: yup.array(),
         }),
       })
       .validate(httpRequest, { abortEarly: false })

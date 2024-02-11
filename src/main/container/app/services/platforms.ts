@@ -1,7 +1,6 @@
 import { container } from 'tsyringe'
 
 import {
-  CreatePlatformCouponService,
   CreatePlatformService,
   DeletePlatformService,
   GetPlatformSalesService,
@@ -13,7 +12,6 @@ import {
 import { PlatformRepository } from '@/app/protocols/db/repositories/platform'
 
 import {
-  CreatePlatformCouponUsecase,
   CreatePlatformUsecase,
   DeletePlatformUsecase,
   GetPlatformSalesUsecase,
@@ -44,10 +42,6 @@ container.register<DeletePlatformUsecase>('DeletePlatformUsecase', {
 
 container.register<PlatformRepository>('PlatformRepository', {
   useClass: PlatformPrismaRepository,
-})
-
-container.register<CreatePlatformCouponUsecase>('CreatePlatformCouponUsecase', {
-  useClass: CreatePlatformCouponService,
 })
 
 container.register<GetPlatformSalesUsecase>('GetPlatformSalesUsecase', {

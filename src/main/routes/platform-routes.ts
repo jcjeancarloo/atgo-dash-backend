@@ -1,7 +1,6 @@
 import { adaptController } from '@/main/adapters'
 import {
   CreatePlatformController,
-  CreatePlatformCouponController,
   DeletePlatformController,
   GetPlatformController,
   GetPlatformSalesController,
@@ -18,6 +17,5 @@ export default (router: Express): void => {
   router.put('/platform/:id', adaptController(UpdatePlatformController.name))
   router.delete('/platform/:id', adaptController(DeletePlatformController.name))
 
-  router.post('/platform/coupon', adaptController(CreatePlatformCouponController.name))
   router.post('/platform/sales', adaptController(GetPlatformSalesController.name))
 }

@@ -2,7 +2,6 @@ import { container } from 'tsyringe'
 
 import {
   CreatePlatformController,
-  CreatePlatformCouponController,
   DeletePlatformController,
   GetPlatformController,
   GetPlatformSalesController,
@@ -24,10 +23,6 @@ container.register<UpdatePlatformController>('UpdatePlatformController', {
 })
 container.register<DeletePlatformController>('DeletePlatformController', {
   useClass: DeletePlatformController,
-})
-
-container.register<CreatePlatformCouponController>('CreatePlatformCouponController', {
-  useClass: CreatePlatformCouponController,
 })
 
 container.register<GetPlatformSalesController>('GetPlatformSalesController', {

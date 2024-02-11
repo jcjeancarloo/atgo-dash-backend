@@ -7,8 +7,6 @@ import * as yup from 'yup'
 type ValidHttpRequest = {
   body: {
     name: string
-    image: string
-    platformKindId: string
   }
 }
 
@@ -24,8 +22,6 @@ export class CreatePlatformController implements Controller {
       .object({
         body: yup.object({
           name: yup.string().required(),
-          image: yup.string().required(),
-          platformKindId: yup.string().uuid().required(),
         }),
       })
       .validate(httpRequest, { abortEarly: false })
