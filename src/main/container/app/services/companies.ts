@@ -3,6 +3,7 @@ import { container } from 'tsyringe'
 import {
   CreateCompanyService,
   DeleteCompanyService,
+  GetCompanySalesService,
   GetCompanyService,
   ListCompaniesService,
   UpdateCompanyService,
@@ -13,6 +14,7 @@ import { CompanyRepository } from '@/app/protocols/db/repositories/companies'
 import {
   CreateCompanyUsecase,
   DeleteCompanyUsecase,
+  GetCompanySalesUsecase,
   GetCompanyUsecase,
   ListCompaniesUsecase,
   UpdateCompanyUsecase,
@@ -23,11 +25,17 @@ import { CompanyPrismaRepository } from '@/infra/db/prisma/repositories/company-
 container.register<CreateCompanyUsecase>('CreateCompanyUsecase', {
   useClass: CreateCompanyService,
 })
+
 container.register<ListCompaniesUsecase>('ListCompaniesUsecase', {
   useClass: ListCompaniesService,
 })
+
 container.register<GetCompanyUsecase>('GetCompanyUsecase', {
   useClass: GetCompanyService,
+})
+
+container.register<GetCompanySalesUsecase>('GetCompanySalesUsecase', {
+  useClass: GetCompanySalesService,
 })
 container.register<UpdateCompanyUsecase>('UpdateCompanyUsecase', {
   useClass: UpdateCompanyService,

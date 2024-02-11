@@ -1,4 +1,5 @@
 import * as CompanyRepository from '@/app/protocols/db/repositories/companies'
+import { excludeAttribute } from '@/utils'
 import { dbHelper } from '../database-helper'
 export class CompanyPrismaRepository implements CompanyRepository.CompanyRepository {
   private prisma = dbHelper.client
@@ -7,9 +8,20 @@ export class CompanyPrismaRepository implements CompanyRepository.CompanyReposit
   }
 
   async get(params: CompanyRepository.Get.Params): Promise<CompanyRepository.Get.Result> {
-    return await this.prisma.company.findUnique({
+    const company = await this.prisma.company.findUnique({
       where: params,
+      include: {
+        integration: true,
+      },
     })
+    if (!company) return null
+
+    const formatted = {
+      ...excludeAttribute(company, ['integration']),
+      integration: company.integration[0],
+    }
+
+    return formatted as CompanyRepository.Get.Result
   }
 
   async create(params: CompanyRepository.Create.Params): Promise<CompanyRepository.Create.Result> {

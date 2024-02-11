@@ -3,7 +3,6 @@ import {
   CreatePlatformController,
   DeletePlatformController,
   GetPlatformController,
-  GetPlatformSalesController,
   ListPlatformController,
   UpdatePlatformController,
 } from '@/presentation/controllers'
@@ -16,6 +15,4 @@ export default (router: Express): void => {
   router.post('/platform', adaptController(CreatePlatformController.name))
   router.put('/platform/:id', adaptController(UpdatePlatformController.name))
   router.delete('/platform/:id', adaptController(DeletePlatformController.name))
-
-  router.post('/platform/sales', adaptController(GetPlatformSalesController.name))
 }

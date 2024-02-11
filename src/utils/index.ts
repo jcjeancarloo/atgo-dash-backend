@@ -1,5 +1,9 @@
 import { PaymentStatusType, SalesPaymentType } from '@/shared'
 
+export const excludeAttribute = (entity: any, keys: string[]) => {
+  return Object.fromEntries(Object.entries(entity).filter(([key]) => !keys.includes(key)))
+}
+
 export const getPaymentMethod = (method: string): SalesPaymentType => {
   const lowercasedMethod = method.toLowerCase()
   if (lowercasedMethod.includes('pix')) return SalesPaymentType.Pix

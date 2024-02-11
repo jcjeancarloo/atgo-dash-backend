@@ -15,7 +15,7 @@ import { inject, injectable } from 'tsyringe'
 export class VtexProvider implements PlatformProvider {
   constructor(@inject('HttpClient') private readonly httpClient: HttpClient) {}
 
-  private UTM_SOURCE_INFLUCENTER = 'influcenter'
+  private UTM_SOURCE_INFLUCENTER = 'INSTAGRAM'
 
   async getSales(params: GetSales.Params): Promise<GetSales.Result> {
     const { data, error } = await this.httpClient.request({

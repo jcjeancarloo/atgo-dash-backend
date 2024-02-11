@@ -1,5 +1,6 @@
 export * from './create-company-usecase'
 export * from './delete-company-usecase'
+export * from './get-company-sales-usecase'
 export * from './get-company-usecase'
 export * from './list-companies-usecase'
 export * from './update-company-usecase'

@@ -1,11 +1,11 @@
-import { Company } from '@prisma/client'
+import { Company, Integration } from '@prisma/client'
 
 export namespace Get {
   export type Params = {
     id: string
   }
 
-  export type Result = Company | null
+  export type Result = Company & { integration: Integration}  | null
 }
 
 export interface Get {
