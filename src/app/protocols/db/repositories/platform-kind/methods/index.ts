@@ -1,0 +1,5 @@
+export * from './create-platform-kind'
+export * from './delete-platform-kind'
+export * from './get-platform-kind'
+export * from './list-platform-kind'
+export * from './update-platform-kind'

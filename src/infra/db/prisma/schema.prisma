@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PlatformKind {
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Platform    Platform[]
+
+  @@map("platform_kind")
+}
+
+enum Resources {
+  BENEFITS
+  SALES
+  CAMPAIGNS
+}
+
+model Platform {
+  id             String       @id @default(uuid())
+  name           String
+  image          String
+  platformKind   PlatformKind @relation(fields: [platformKindId], references: [id])
+  platformKindId String
+  resources      Resources[]
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("platforms")
+}
+
+model Gateway {
+  id           String         @id @default(uuid())
+  name         String
+  isActive     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Subscription Subscription[]
+
+  @@map("gateways")
+}
+
+model Plan {
+  id           String         @id @default(uuid())
+  name         String
+  amount       Float
+  isActive     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Subscription Subscription[]
+
+  @@map("plans")
+}
+
+model Subscription {
+  id                    String   @id @default(uuid())
+  gatewayCustomerId     String   @unique
+  gatewaySubscriptionId String
+  isActive              Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  gateway               Gateway  @relation(fields: [gatewayId], references: [id])
+  plan                  Plan     @relation(fields: [planId], references: [id])
+  gatewayId             String
+  planId                String
+
+  @@map("subscriptions")
+}

@@ -1,0 +1,5 @@
+export * from './create-platform'
+export * from './delete-platform'
+export * from './get-platform'
+export * from './list-platform'
+export * from './update-platform'
