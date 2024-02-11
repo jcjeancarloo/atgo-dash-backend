@@ -15,9 +15,10 @@ import { inject, injectable } from 'tsyringe'
 export class VtexProvider implements PlatformProvider {
   constructor(@inject('HttpClient') private readonly httpClient: HttpClient) {}
 
-  private UTM_SOURCE_INFLUCENTER = 'INSTAGRAM'
-
   async getSales(params: GetSales.Params): Promise<GetSales.Result> {
+    const toISO = (date: string): string => new Date(date).toISOString()
+    const filterByDate = `creationDate:[${toISO(params.startDate)} TO ${toISO(params.endDate)}]`
+
     const { data, error } = await this.httpClient.request({
       method: 'GET',
       baseUrl: params.integrationUrl,
@@ -25,7 +26,9 @@ export class VtexProvider implements PlatformProvider {
         'X-VTEX-API-AppKey': params.publicKey as string,
         'X-VTEX-API-AppToken': params.privateKey,
       },
-      url: `/api/oms/pvt/orders?f_UtmSource=${this.UTM_SOURCE_INFLUCENTER}&page=10&per_page=100&orderBy=creationDate,asc`,
+      url: `/api/oms/pvt/orders?${params.utmSource && `f_UtmSource=${params.utmSource}`}&page=${
+        params.page
+      }&per_page=${params.itemsPerPage}&f_creationDate=${filterByDate}&orderBy=creationDate,desc`,
     })
 
     if (error) throw new BadGatewayError(error)
@@ -37,6 +40,7 @@ export class VtexProvider implements PlatformProvider {
         invoiced: 'paid',
         'payment-pending': 'awaiting_payment',
         canceled: 'canceled',
+        handling: 'handling',
       }
       return SalesStatusType[status]
     }
@@ -66,6 +70,11 @@ export class VtexProvider implements PlatformProvider {
       totalCount: items.length,
       totalAmount,
       totalByPaymentMethod: getTotalByPaymentMethod(),
+      pagination: {
+        hasNext: data.paging.pages > data.paging.currentPage,
+        currentPage: data.paging.currentPage,
+        itemsPerPage: data.paging.perPage,
+      },
       items,
     }
   }

@@ -13,7 +13,7 @@ export class GetCompanySalesService implements GetCompanySalesUsecase {
   ) {}
 
   async perform(params: GetCompanySalesUsecase.Params): Promise<GetCompanySalesUsecase.Result> {
-    const company = await this.companyRepository.get(params)
+    const company = await this.companyRepository.get({ id: params.id })
     if (!company) throw new BadRequestError('Company  not found')
 
     return await this.platformProvider.getSales({
@@ -21,6 +21,7 @@ export class GetCompanySalesService implements GetCompanySalesUsecase {
       privateKey: company.integration.privateKey,
       publicKey: company.integration.publicKey || undefined,
       integrationUrl: company.integration.url,
+      ...params.query,
     })
   }
 }

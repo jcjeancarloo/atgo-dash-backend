@@ -32,6 +32,7 @@ const TotalPaymentStatusType: Record<PaymentStatusType, number> = {
   [PaymentStatusType.Paid]: 0,
   [PaymentStatusType.AwaitingPayment]: 0,
   [PaymentStatusType.Canceled]: 0,
+  [PaymentStatusType.Handling]: 0,
 }
 
 export const calcTotalByPaymentMethod = (method: string) => {
@@ -59,6 +60,7 @@ export const getTotalByPaymentStatus = () => {
     totalPaidSales: TotalPaymentStatusType[PaymentStatusType.Paid],
     totalAwaitingPaymentSales: TotalPaymentStatusType[PaymentStatusType.AwaitingPayment],
     totalCanceledSales: TotalPaymentStatusType[PaymentStatusType.Canceled],
+    totalHandlingSales: TotalPaymentStatusType[PaymentStatusType.Handling],
   }
 }
 

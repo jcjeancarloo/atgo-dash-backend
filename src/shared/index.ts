@@ -13,4 +13,5 @@ export enum PaymentStatusType {
   Paid = 'paid',
   AwaitingPayment = 'awaiting_payment',
   Canceled = 'canceled',
+  Handling = 'handling',
 }

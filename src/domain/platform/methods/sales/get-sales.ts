@@ -14,10 +14,20 @@ export namespace GetSales {
     publicKey?: string
     integrationUrl: string
     platformId: string
+    startDate: string
+    endDate: string
+    utmSource?: string
+    page: number
+    itemsPerPage: number
   }
 
   export type Result = {
     items: Sale[]
+    pagination: {
+      hasNext: boolean
+      currentPage: number
+      itemsPerPage: number
+    }
     totalAwaitingPaymentSales: number
     totalPaidSales: number
     totalCanceledSales: number

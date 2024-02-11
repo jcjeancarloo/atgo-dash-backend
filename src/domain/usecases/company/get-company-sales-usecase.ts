@@ -5,6 +5,13 @@ export namespace GetCompanySalesUsecase {
 
   export type Params = {
     id: string
+    query: {
+      startDate: string
+      endDate: string
+      utmSource?: string
+      page: number
+      itemsPerPage: number
+    }
   }
   export type Result = GetSales.Result
 }
